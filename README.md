@@ -1,24 +1,18 @@
-# README
+# ROR Assignment for RDA Labs
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application has the following version requirements:
 
-Things you may want to cover:
+* Ruby 2.4.0
+* Rails 5.2.0
+* MySQL 5.6 or above
 
-* Ruby version
+#### After cloning the repo use the following steps to run this application:
 
-* System dependencies
+1. Run `bundle install`
+2. Run `rails db:setup`
+3. Run `rails s`
 
-* Configuration
+#### To run tests and check coverage run:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* `bundle exec rspec`
+    * After running this command the tests will run and a coverage report will be generated under `coverage` folder. Open `index.html` from that folder and the code coverage will be shown.
