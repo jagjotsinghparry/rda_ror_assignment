@@ -13,6 +13,7 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require cable
 //= require_tree .
 
 
@@ -53,28 +54,6 @@ $(function() {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(function(resp) {
-            // If it was accepted then change the color and tooltip information
-            if(resp.status === true) {
-                let $box = $('#box-' + number);
-                $box.attr('style', 'background-color: ' + color);
-                $box.attr('data-toggle', 'tooltip');
-                $box.attr('data-html', 'true');
-                $box.attr('data-original-title', 'User: ' + resp.box.user + '<br />Time: ' + resp.box.last_updated);
-            }
-        })
-    });
-
-    // Code for intermittently updating of boxes
-    setInterval(function() {
-        let $current_row;
-        $.get('/boxes.json').then(function(resp) {
-            for(i = 1; i <= 400; i++) {
-                $current_row = $('#box-' + i);
-                $current_row.attr('style', "background-color: " + resp[i - 1].color + ";");
-                $current_row.attr('data-original-title', "User: " + resp[i - 1].user + "<br />Time: " + resp[i - 1].last_updated);
-            }
-            $('.box').tooltip();
         });
-    }, 5000);
+    });
 });
