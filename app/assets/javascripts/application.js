@@ -27,4 +27,24 @@ $(function() {
             count++;
         }
     }
+
+    $('.box').on('click', function() {
+       let number = $(this).data('number');
+       let color = $('#color').val();
+
+       $.ajax('/boxes/' + number + '.json', {
+           data: JSON.stringify({
+               color: color
+           }),
+           dataType: 'JSON',
+           method: 'PATCH',
+           headers: {
+               'Content-Type': 'application/json'
+           }
+       }).then(function(resp) {
+           if(resp.status === true) {
+               $('#box-' + number).attr('style', 'background-color: ' + color);
+           }
+       })
+    });
 });
