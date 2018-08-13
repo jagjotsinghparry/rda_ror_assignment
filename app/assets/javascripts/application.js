@@ -20,22 +20,28 @@ $(function() {
     let i, j, count = 1;
     let $main_table = $('#main-table');
     let $current_row;
+    // Fetch all boxes
     $.get('/boxes.json').then(function(resp) {
         for(i = 1; i <= 20; i++) {
+            // Make table-rows
             $main_table.append('<tr id="row-' + i + '"></tr>');
             $current_row = $('#row-' + i);
             for(j = 1; j <= 20; j++) {
+                // Append table-data in each row sequentially
                 $current_row.append('<td id="box-' + count + '"  class="box"  data-number="' + count + '"  style="background-color: ' + resp[count - 1].color + '" data-toggle="tooltip" data-html="true" title="User: ' + resp[count - 1].user + '<br />Time: ' + resp[count - 1].last_updated + '"></td>');
                 count++;
             }
         }
+        // Activate tooltips
         $('.box').tooltip();
     });
 
+    // Dynamic click event listener if anybody clicks a box
     $('body').on('click', 'td.box', function() {
         let number = $(this).data('number');
         let color = $('#color').val();
 
+        // Send request to server for processing
         $.ajax('/boxes/' + number + '.json', {
             data: JSON.stringify({
                 color: color
@@ -46,6 +52,7 @@ $(function() {
                 'Content-Type': 'application/json'
             }
         }).then(function(resp) {
+            // If it was accepted then change the color and tooltip information
             if(resp.status === true) {
                 let $box = $('#box-' + number);
                 $box.attr('style', 'background-color: ' + color);
@@ -56,6 +63,7 @@ $(function() {
         })
     });
 
+    // Code for intermittently updating of boxes
     setInterval(function() {
         let $current_row;
         $.get('/boxes.json').then(function(resp) {
