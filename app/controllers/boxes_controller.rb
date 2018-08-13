@@ -19,7 +19,7 @@ class BoxesController < ApplicationController
     if color.length === 7 and !color[1..6][/\H/] and box and session[:user]
       box.update(color: params[:color], user: session[:user])
       respond_to do |format|
-        format.json { render json: { status: true } and return }
+        format.json { render json: { status: true, box: BoxSerializer.new(box) } and return }
       end
     end
 

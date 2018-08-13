@@ -25,10 +25,11 @@ $(function() {
             $main_table.append('<tr id="row-' + i + '"></tr>');
             $current_row = $('#row-' + i);
             for(j = 1; j <= 20; j++) {
-                $current_row.append('<td id="box-' + count + '" class="box" data-number="' + count + '" style="background-color: ' + resp[count - 1].color + '"></td>');
+                $current_row.append('<td id="box-' + count + '"  class="box"  data-number="' + count + '"  style="background-color: ' + resp[count - 1].color + '" data-toggle="tooltip" data-html="true" title="User: ' + resp[count - 1].user + '<br />Time: ' + resp[count - 1].last_updated + '"></td>');
                 count++;
             }
         }
+        $('.box').tooltip();
     });
 
     $('body').on('click', 'td.box', function() {
@@ -46,7 +47,11 @@ $(function() {
             }
         }).then(function(resp) {
             if(resp.status === true) {
-                $('#box-' + number).attr('style', 'background-color: ' + color);
+                let $box = $('#box-' + number);
+                $box.attr('style', 'background-color: ' + color);
+                $box.attr('data-toggle', 'tooltip');
+                $box.attr('data-html', 'true');
+                $box.attr('data-original-title', 'User: ' + resp.box.user + '<br />Time: ' + resp.box.last_updated);
             }
         })
     });
