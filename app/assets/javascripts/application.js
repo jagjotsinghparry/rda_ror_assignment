@@ -17,6 +17,8 @@
 
 
 $(function() {
+    $('#color').colorPicker();
+
     let i, j, count = 1;
     let $main_table = $('#main-table');
     let $current_row;
