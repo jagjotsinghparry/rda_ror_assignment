@@ -14,3 +14,17 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+
+$(function() {
+    let i = 1, j = 1, count = 1;
+    let $main_table = $('#main-table');
+    for(i = 1; i <= 20; i++) {
+        $main_table.append('<tr id="row-' + i + '"></tr>');
+        let $current_row = $('#row-' + i);
+        for(j = 0; j < 20; j++) {
+            $current_row.append('<td id="box-' + count + '" class="box" data-number="' + count + '"></td>');
+            count++;
+        }
+    }
+});
