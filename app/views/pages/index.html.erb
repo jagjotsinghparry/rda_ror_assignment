@@ -8,5 +8,20 @@
       <table id="main-table" border="1">
       </table>
     </div>
+    <div class="col-md-12">
+      <h3>Leaderboards</h3>
+      <ol>
+        <% @top_users.each_with_index do |user, index| %>
+        <li>
+          <%= user.user %>
+          <ul>
+            <% @top_colors[index].each do |color| %>
+            <li><%= color.color %></li>
+            <% end %>
+          </ul>
+        </li>
+        <% end %>
+      </ol>
+    </div>
   </div>
 </div>
