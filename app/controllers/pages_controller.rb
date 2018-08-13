@@ -1,7 +1,6 @@
 class PagesController < ApplicationController
   def index
-    unless session[:user]
-      session[:user] = SecureRandom.hex(6)
-    end
+    session[:user] ||= SecureRandom.hex(6)
+    @user = session[:user]
   end
 end
