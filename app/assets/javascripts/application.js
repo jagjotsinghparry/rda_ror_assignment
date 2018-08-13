@@ -55,4 +55,16 @@ $(function() {
             }
         })
     });
+
+    setInterval(function() {
+        let $current_row;
+        $.get('/boxes.json').then(function(resp) {
+            for(i = 1; i <= 400; i++) {
+                $current_row = $('#box-' + i);
+                $current_row.attr('style', "background-color: " + resp[i - 1].color + ";");
+                $current_row.attr('data-original-title', "User: " + resp[i - 1].user + "<br />Time: " + resp[i - 1].last_updated);
+            }
+            $('.box').tooltip();
+        });
+    }, 2000);
 });
